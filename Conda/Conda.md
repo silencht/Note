@@ -80,6 +80,20 @@ conda允许你创建一个不会与其他环境有关的，包含文件、包和
 
 4. 关闭当前环境，切换至默认环境 (即base)，键入: `conda activate`
 
+5. 删除环境
+
+   如果当前位于snowflakes环境内，则先退出环境，输入：
+
+   ```
+   conda deactivate
+   ```
+
+   回到base环境后，输入删除snowflakes环境的命令：
+
+   ```
+   conda env remove -n snowflakes
+   ```
+
 ## 3.管理Python
 
 当你创建一个新环境时，conda安装的Python版本与你安装的anaconda软件的默认Python版本相同。如果你想要使用一个不同的Python版本，比如Python 3.5, 你可以在创建一个新的环境时，指定你想要的Python版本。 
