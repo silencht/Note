@@ -74,6 +74,16 @@ String& String::operator=(const String& str)
    m_data = new char[ strlen(str.m_data) + 1 ];
    strcpy(m_data, str.m_data);
    return *this;
+
+   //由 <<C++ Primer 5th>> 13.2.1节启发，本函数体代码或许还可以这么写：
+   /*
+   auto m_data_extra = new char[ strlen(str.m_data) + 1 ]; //拷贝一份右值的副本,先为副本申请一个相同大小的空间
+   strcpy(m_data_extra, str.m_data); //将右值的内容拷贝至副本空间中
+   delete[] m_data; //释放左值内存
+   m_data = new char[ strlen(str.m_data) + 1 ]; //再为左值申请一份相同大小的空间
+   strcpy(m_data, m_data_extra); //将右值原来保存的副本拷贝给左值
+   return *this; //返回本对象
+   */
 }
 
 inline
