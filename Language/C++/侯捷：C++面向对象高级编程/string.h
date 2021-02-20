@@ -41,6 +41,7 @@ private:
 
 #include <cstring>
 
+//构造函数
 inline
 String::String(const char* cstr)
 {
@@ -54,18 +55,20 @@ String::String(const char* cstr)
    }
 }
 
+//析构函数
 inline
 String::~String()
 {
    delete[] m_data; //释放动态分配的内存，否则会造成内存泄漏
 }
 
+//拷贝赋值运算符
 inline
 String& String::operator=(const String& str)
 {
    /*
-     检测自我赋值，若无此判断，在发生自己给自己(都指向都一个对象的指针(无论它们名字相同与否))赋值的情况下,
-     直接 delete[]左值内存之后,因为要给左值赋值的右值同样指向了这块内存,相当于提前将右值的内存释放
+     检测自我赋值，若无此判断，在发生自己给自己(都指向都一个对象的指针(无论它们名字相同与否))赋值的情况下,直接 delete[]
+     左侧运算对象的内存之后,因为要给左侧运算对象赋值的右侧运算对象同样指向了这块内存,相当于提前将右侧运算对象的内存释放
    */
    if (this == &str) 
       return *this;
@@ -77,15 +80,30 @@ String& String::operator=(const String& str)
 
    //由 <<C++ Primer 5th>> 13.2.1节启发，本函数体代码或许还可以这么写：
    /*
-   auto m_data_extra = new char[ strlen(str.m_data) + 1 ]; //拷贝一份右值的副本,先为副本申请一个相同大小的空间
-   strcpy(m_data_extra, str.m_data); //将右值的内容拷贝至副本空间中
-   delete[] m_data; //释放左值内存
-   m_data = new char[ strlen(str.m_data) + 1 ]; //再为左值申请一份相同大小的空间
-   strcpy(m_data, m_data_extra); //将右值原来保存的副本拷贝给左值
+   auto m_data_extra = new char[ strlen(str.m_data) + 1 ]; //拷贝一份右侧运算对象的副本,先为副本申请一个相同大小的空间
+   strcpy(m_data_extra, str.m_data); //将右侧运算对象的内容拷贝至副本空间中
+   delete[] m_data; //释放左侧运算对象内存
+   m_data = new char[ strlen(str.m_data) + 1 ]; //再为左侧运算对象申请一份相同大小的空间
+   strcpy(m_data, m_data_extra); //将右侧运算对象原来保存的副本拷贝给左侧运算对象
    return *this; //返回本对象
    */
+
+   //由 <<C++ Primer 5th>> 13.3节启发，或许还可以像下面这样写：
+}
+//拷贝赋值运算符：<<C++ Primer 5th>> 13.3版本 
+inline
+String& String::operator=(const String str)
+{
+   /*
+     此赋值运算符重载中的参数并非引用类型，因此将右侧运算对象以 by value方式(意味着 String的拷贝构造函数)传递给了
+     赋值运算符的 str参数 。因此参数 str是右侧运算对象的一个副本（即参数 str的 m_data不指向右侧运算对象开辟的内存空间，
+     但内容与右侧运算对象相同）。
+   */
+   swap(*this, str); //交换左侧运算对象和 str的 m_data的值，str现在指向左侧运算对象曾经使用的内存
+   return *this; //退出函数作用域后 str被销毁（调用 str的析构函数，从而 delete了原对象曾经申请的内存空间）
 }
 
+//拷贝构造函数
 inline
 String::String(const String& str)
 {
