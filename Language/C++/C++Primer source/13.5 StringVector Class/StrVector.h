@@ -23,8 +23,9 @@ public:
     StrVec& operator=(StrVec&&)NOEXCEPT; //移动赋值运算符
     ~StrVec(); //析构函数
 
-    //添加新元素（首先检查是否还有空间容纳新元素）
-    void push_back(const std::string&);
+    //添加新元素（首先检查是否还有空间容纳新元素）：一个左值引用拷贝版本，一个右值引用移动版本
+    void push_back(const std::string&); //拷贝元素
+    void push_back(std::string&&); //移动元素
     //size成员返回当前真正在使用的元素的数目
     size_t size() const { return first_free - elements; }
     //capacity成员返回StrVec可以保存的元素的数量

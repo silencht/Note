@@ -6,6 +6,11 @@ void StrVec::push_back(const std::string &s)
     chk_n_alloc();
     alloc.construct(first_free++, s);
 }
+void StrVec::push_back(std::string &&s)
+{
+    chk_n_alloc();
+    alloc.construct(first_free++,std::move(s)); //使用string的移动构造函数来构造新元素
+}
 
 std::pair<std::string*, std::string*>
 StrVec::alloc_n_copy(const std::string *b, const std::string *e)
