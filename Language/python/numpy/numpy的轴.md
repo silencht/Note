@@ -225,4 +225,9 @@ arr1 = np.array([[1,2], [7,5]])
 
 ##### [2、本文来源地址](https://flat2010.github.io/2017/05/31/Numpy%E6%95%B0%E7%BB%84%E8%A7%A3%E6%83%91/)
 
-##### [3、另外推荐：**图解 | NumPy可视化指南**](https://www.yanxishe.com/TextTranslation/3198)
+##### 3、另外推荐：图解NumPy可视化指南
+
+[Web链接：**图解NumPy可视化指南**](https://www.yanxishe.com/TextTranslation/3198)
+
+[本地文件链接：图解NumPy可视化指南.pdf](./图解NumPy可视化指南.pdf)
+
