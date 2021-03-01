@@ -130,15 +130,55 @@ The 4-th byte codes the number of dimensions of the vector/matrix: 1 for vectors
 
 The sizes in each dimension are 4-byte integers (MSB first, high endian, like in most non-Intel processors).
 
-## 2.Code
+## 2. Code
+
+#### 2~5 urllib
+
+> urllib模块提供了一系列用于操作URL的功能。
+
+我们需要从mnist网站下载四个文件压缩包，所以插入该模块。
+
+#### 6 os.path
+
+常用路径操作
+
+#### 7 gzip
+
+> 此模块提供的简单接口帮助用户压缩和解压缩文件，功能类似于 GNU 应用程序 **gzip** 和 **gunzip**。
+
+#### 8 pickle
+
+> 模块 [`pickle`](https://docs.python.org/zh-cn/3/library/pickle.html#module-pickle) 实现了对一个 Python 对象结构的二进制序列化和反序列化。 *"pickling"* 是将 Python 对象及其所拥有的层次结构转化为一个字节流的过程，而 *"unpickling"* 是相反的操作，会将（来自一个 [binary file](https://docs.python.org/zh-cn/3/glossary.html#term-binary-file) 或者 [bytes-like object](https://docs.python.org/zh-cn/3/glossary.html#term-bytes-like-object) 的）字节流转化回一个对象层次结构。 pickling（和 unpickling）也被称为“序列化”, “编组” [1](https://docs.python.org/zh-cn/3/library/pickle.html#id7) 或者 “平面化”。而为了避免混乱，此处采用术语 “封存 (pickling)” 和 “解封 (unpickling)”。
 
 
+
+> [Python对象在程序运行的时候是在内存中的，pickle模块可以将对象持久化到硬盘（通俗点就是保存到文件），对象里边保存的数据就不会随着Python对象生命周期的结束而丢失，使用的时候直接用pickle再从文件加载回来就好了。](https://www.zhihu.com/question/35549347/answer/1247745235)
+
+#### 21
+
+```python
+os.path.abspath(path) #返回路径 path 的绝对路径
+os.path.dirname(path) # 返回路径 path 的（上一级）目录名称
+```
+
+其中：`__file__` is the pathname of the file from which the module was loaded, if it was loaded from a file. The `__file__` attribute is not present for C modules that are statically linked into the interpreter; for extension modules loaded dynamically from a shared library, it is the pathname of the shared library file.
+
+#### 37
+
+> urlretrieve(url, filename=None, reporthook=None, data=None)
+>
+> url：下载链接地址
+> filename：指定保存本地路径
+> reporthook：回调函数，可以利用其来显示当前的下载进度。
+> data：返回一个包含两个元素的(filename, headers) 元组，filename 表示保存到本地的路径，header表示服务器的响应头
 
 ## Reference
 
 1. [THE MNIST DATABASE](http://yann.lecun.com/exdb/mnist/)
-
 2. [MNIST数据集介绍](https://www.jianshu.com/p/050750a1bb5e)
-
 3. [可跳过2，直接看3：MNIST数据集与IDX文件](https://blog.csdn.net/weixin_38118997/article/details/103670901)
+4. [廖雪峰Python教程之urllib](https://www.liaoxuefeng.com/wiki/1016959663602400/1019223241745024)
+5. [gzip](https://docs.python.org/zh-cn/3/library/gzip.html)
+6. [pickle](https://docs.python.org/zh-cn/3/library/pickle.html)
+7. [urllib.request.urlretrieve](https://blog.csdn.net/zzc15806/article/details/79636417)
 

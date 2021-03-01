@@ -1,0 +1,18 @@
+## 1. Code
+
+
+
+## Extra
+
+使用**os.pardir()** 获取当前目录的父目录（上一级目录），以字符串形式显示目录名。**注意:** Windows 和 POSIX 返回 **..**
+
+使用**sys.path.append()**方法可以临时添加包搜索路径。这种方法导入的路径会在python程序退出后失效。
+
+```python
+sys.path.append(os.pardir()) #添加当前路径父目录为包搜索路径
+```
+
+#### 
+
+
+
