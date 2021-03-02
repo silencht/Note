@@ -28,7 +28,7 @@ The first 5000 examples of the test set are taken from the original NIST trainin
 
 <img src="https://silencht.oss-cn-beijing.aliyuncs.com/img/image-20210301144148039.png" alt="image-20210301144148039" style="zoom: 25%;" />
 
-####  train-labels-idx1-ubyte:
+####  train-labels-idx1-ubyte
 
 ```
 [offset] 	[type]     			[value]     		 [description]
@@ -150,9 +150,9 @@ The sizes in each dimension are 4-byte integers (MSB first, high endian, like in
 
 > 模块 [`pickle`](https://docs.python.org/zh-cn/3/library/pickle.html#module-pickle) 实现了对一个 Python 对象结构的二进制序列化和反序列化。 *"pickling"* 是将 Python 对象及其所拥有的层次结构转化为一个字节流的过程，而 *"unpickling"* 是相反的操作，会将（来自一个 [binary file](https://docs.python.org/zh-cn/3/glossary.html#term-binary-file) 或者 [bytes-like object](https://docs.python.org/zh-cn/3/glossary.html#term-bytes-like-object) 的）字节流转化回一个对象层次结构。 pickling（和 unpickling）也被称为“序列化”, “编组” [1](https://docs.python.org/zh-cn/3/library/pickle.html#id7) 或者 “平面化”。而为了避免混乱，此处采用术语 “封存 (pickling)” 和 “解封 (unpickling)”。
 
-
-
 > [Python对象在程序运行的时候是在内存中的，pickle模块可以将对象持久化到硬盘（通俗点就是保存到文件），对象里边保存的数据就不会随着Python对象生命周期的结束而丢失，使用的时候直接用pickle再从文件加载回来就好了。](https://www.zhihu.com/question/35549347/answer/1247745235)
+
+> [Python实用模块之pickle，序列化与反序列化](https://www.bilibili.com/video/BV1pA411j7eQ)
 
 #### 21
 
@@ -171,6 +171,20 @@ os.path.dirname(path) # 返回路径 path 的（上一级）目录名称
 > filename：指定保存本地路径
 > reporthook：回调函数，可以利用其来显示当前的下载进度。
 > data：返回一个包含两个元素的(filename, headers) 元组，filename 表示保存到本地的路径，header表示服务器的响应头
+
+#### 59
+
+[np.frombuffer](../../Language/python/numpy/frombuffer.md)
+
+#### 84
+
+[enumerate函数](../../Language/python/basic/enumerate.md)
+
+#### 108
+
+[keword **with ... as ...**](../../Language/python/basic/keyword_with.md)
+
+
 
 ## Reference
 

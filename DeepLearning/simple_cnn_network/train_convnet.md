@@ -11,8 +11,3 @@
 ```python
 sys.path.append(os.pardir()) #添加当前路径父目录为包搜索路径
 ```
-
-#### 
-
-
-
