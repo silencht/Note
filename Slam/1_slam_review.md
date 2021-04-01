@@ -2,23 +2,43 @@
 
 
 
-## 1. SLAM是什么
+## 1. SLAM概念
 
-**同时定位与地图构建**（英语：Simultaneous localization and mapping，一般直接称SLAM）是一种概念：希望机器人从未知环境的未知地点出发，在运动过程中通过重复观测到的地图特征（比如，墙角，柱子等）定位自身位置和姿态，再根据自身位置增量式的构建地图，从而达到同时定位和地图构建的目的。
+### 1.1 SLAM是什么？
 
-### 1.1 SLAM适用场景
+**同时定位与地图构建**（英语：Simultaneous localization and mapping，一般直接称SLAM）是一种概念：
+
+> 希望机器人从未知环境的未知地点出发，在运动过程中通过重复观测到的地图特征（比如，墙角，柱子等）定位自身位置和姿态，再根据自身位置增量式的构建地图，从而达到同时定位和地图构建的目的。
+
+- localization：我在什么地方？——**定位**
+
+- mapping：周围环境什么样子？——**建图**
+
+- simultaneous：先做什么？——**同时**
+
+  > simultaneous map building and localization can be seen to present a question of which came fifirst, the chicken or the egg? (The map or the motion?)
+
+  > starting from the unknown location of the unknown environment, the robot locates its own position and attitude through repeated observation of environmental features in the movement process, and then builds an incremental map of the surrounding environment according to its own position, so as to achieve the purpose of simultaneous positioning and map construction.
+
+  **同时**建立地图和定位可以被视为一个是先有鸡还是先有蛋的问题。
+
+  从未知环境的未知地点出发，通过运动过程中对环境特征的反复观察，定位自身位置和姿态，然后根据自身位置来构建周围环境的**增量地图**，实现 同时 定位和地图构造的目的。
+
+### 1.2 SLAM用在哪？
+
+#### 1.2.1 适用场景
 
 > SLAM finds applications in all scenarios in which a prior map is not available and needs to be built.
 
 那些没有办法构建先验地图且需要构建地图的所有场景。
 
-### 1.2 SLAM不适用场景
+#### 1.2.2 不适用场景
 
 > SLAM may not be required if localization can be done reliably with respect to the known landmarks.
 
 那些能依靠已知地标进行有效定位的场景。
 
-### 1.3 SLAM的兴起
+### 1.3 SLAM为何兴起？
 
 > The popularity of the SLAM problem is connected with the emergence of indoor applications of mobile robotics.
 
@@ -32,15 +52,19 @@
 
 如果考虑到SLAM涉及的多方面问题，那么它在这三十年的流行也就不足为奇。
 
-从低层次，即SLAM前端来说，它与计算机视觉和信号处理等领域很自然的交叉作用；从高层次，即SLAM后端来说，它是一个吸引人的几何、图论、优化和概率估计的组合。
+从低层次，即SLAM前端来说，它与计算机视觉和信号处理等领域很自然的交叉作用；
 
-### 1.4 两个重要问题
+从高层次，即SLAM后端来说，它是一个吸引人的几何、图论、优化和概率估计的组合。
+
+### 1.4 SLAM有研究意义吗？
 
 #### 1.4.1 自动机器人需要SLAM吗？
 
+##### 1.4.1.0 引言
+
 > > SLAM aims at building a globally consistent representation of the environment, leveraging both ego-motion measurements and loop closures. The keyword here is “**loop closure**”: if we sacrififice loop closures, SLAM reduces to **odometry**. In early applications, odometry was obtained by integrating wheel encoders. The pose estimate obtained from wheel odometry quickly **drifts**, making the estimate unusable after few meters.
 >
-> SLAM旨在利用自我运动测量和回路闭合来构建整体一致的环境表示。这里的关键词是“回路闭合”：如果我们丢弃回路闭合，那么SLAM将会退化为里程测量 / 里程计。在早期的应用中，可以通过积分车轮编码器来获得里程。然而，从车轮里程测量所获得的姿态估计快速**漂移**，使得估计数在短短几米之内就不可用。
+> SLAM旨在利用自我运动测量和闭环检测来构建整体一致的环境表示。这里的关键词是“闭环检测”：如果我们丢弃闭环检测，那么SLAM将会退化为里程测量 / 里程计。在早期的应用中，可以通过积分车轮编码器来获得里程。然而，从车轮里程测量所获得的姿态估计快速**漂移**，使得估计数在短短几米之内就不可用。
 >
 > - A. Kelly. Mobile Robotics: Mathematics, Models, and Methods . Cambridge University Press, 2013.
 >
@@ -66,7 +90,7 @@
 
 - **视觉-惯性导航（VIN）就是一个简化版SLAM**
 
-​	首先，在过去十年的SLAM发展中，研究本身就产生了基于视觉-惰性测量算法，这种算法目前代表了最先进的水平[163,175]。在这种意义上，视觉-惯性导航（visual-inertial navigation）就是SLAM：**VIN可以被看作一个简化版SLAM系统，只不过这个系统的回路闭合（loop closure）或者位置识别（place recongnition）模块没有开启**。
+​	首先，在过去十年的SLAM发展中，研究本身就产生了基于视觉-惰性测量算法，这种算法目前代表了最先进的水平[163,175]。在这种意义上，视觉-惯性导航（visual-inertial navigation）就是SLAM：**VIN可以被看作一个简化版SLAM系统，只不过这个系统的闭环检测（loop closure）或者位置识别（place recongnition）模块没有开启**。
 
 ​	更一般的，SLAM直接导致了在相比以前文献（如航空航天工程中的[惰性导航](./relative_note/visual-inertial navigation.md)）更有挑战性的设置下（如没有GPS,低质量传感器等）关于传感器融合的研究。
 
@@ -74,7 +98,7 @@
 
 - **单纯的里程计会无限探索新区域，加入位置识别有助于理解环境真实拓扑**
 
- 	第二个回答是关于环境的真实拓扑结构（true topology）的。一个只运行里程计（odometry）而关闭回路闭合（loop closure）的机器人会将世界解释为一个“无限走廊（infinite corridor）”，在这个“走廊”里，机器人一直保持着探索未定义的新区域，如图1左侧。回路闭环事件会通知机器人这个走廊与它自身发生相交（intersect），如图1右侧。回路闭合的优势现在开始变得清晰：**加入回路闭合后，机器人可以理解环境的真实拓扑，也就有能力找到位置之间的最短路径**（比如地图上的点B和点C）。
+ 	第二个回答是关于环境的真实拓扑结构（true topology）的。一个只运行里程计（odometry）而关闭闭环检测（loop closure）的机器人会将世界解释为一个“无限走廊（infinite corridor）”，在这个“走廊”里，机器人一直保持着探索未定义的新区域，如图1左侧。回路闭环事件会通知机器人这个走廊与它自身发生相交（intersect），如图1右侧。闭环检测的优势现在开始变得清晰：**加入闭环检测后，机器人可以理解环境的真实拓扑，也就有能力找到位置之间的最短路径**（比如地图上的点B和点C）。
 
 ![image-20210331092855678](https://silencht.oss-cn-beijing.aliyuncs.com/img/image-20210331092855678.png)
 
@@ -84,7 +108,7 @@
 
 - **单纯的位置识别有可能被位置不同而场景相似的数据关联所欺骗**
 
-​	那么，既然获得正确的环境拓扑是SLAM的优点之一，那为什么不简单删掉度量信息（metric information）就只做位置识别呢？答案很简单：度量信息可以使得位置识别更简单和鲁棒；度量的重建会通知机器人有关回路闭合的机会，并允许丢弃虚假的回路闭环[150]。因此，尽管SLAM在原理上可能是冗余的（一个甲骨文位置识别模块足以胜任构建拓扑地图），但是SLAM（中的度量信息）为那些错误的数据关联和感知混叠提供了自然的防御（此时，对于环境中的实际位置不同而场景却相似的情况将不会欺骗到位置识别）。
+​	那么，既然获得正确的环境拓扑是SLAM的优点之一，那为什么不简单删掉度量信息（metric information）就只做位置识别呢？答案很简单：度量信息可以使得位置识别更简单和鲁棒；度量的重建会通知机器人有关闭环检测的机会，并允许丢弃虚假的回路闭环[150]。因此，尽管SLAM在原理上可能是冗余的（一个甲骨文位置识别模块足以胜任构建拓扑地图），但是SLAM（中的度量信息）为那些错误的数据关联和感知混叠提供了自然的防御（此时，对于环境中的实际位置不同而场景却相似的情况将不会欺骗到位置识别）。
 
 ​	从这个意义上来说，**SLAM地图提供了一种既预测又验证未来测量结果的方法**：我们相信这个机制将是机器人稳定运行的关键。
 
@@ -107,6 +131,15 @@
 
 - 当机器人的 运动 或者 所处环境 具有挑战性的时候，SLAM算法很容易失效。例如，快速机器人动力学 、 高度动态的环境；
 - SLAM算法往往无法满足严格性能要求场合。例如，快速闭环控制下的高速率估计（high rate estimation for fast closed-loop control）
+
+### 1.5 视觉SLAM的相机决策
+
+|   相机   |                             优点                             |                             缺点                             |
+| :------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| 单目相机 |                     结构简单，成本特别低                     |            平移之后才能计算深度，无法确定真实尺度            |
+| 双目相机 |                     克服了单目相机的缺点                     | 配置与标定较为复杂，深度量程和精度受双目基线与分辨率所限，视差计算非常消耗计算资源 |
+| 深度相机 |                 相比双目相机节省大量计算资源                 | 测量范围窄、噪声大、视野小、易受日光干扰、无法测量透射材质等。主要用于室内，室外较难应用。 |
+| 事件相机 | 相比传统相机具有更小的时间延迟，更快的更新速率、更强的动态范围、更低的功耗和更小的存储空间要求。有望成为继深度相机后的新型视觉传感器 |     完全依赖于场景动态,低动态环境下性能反而不如传统相机      |
 
 ## 2. SLAM的发展阶段
 
