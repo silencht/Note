@@ -122,7 +122,7 @@
 
 ​	这个问题很难回答。因为SLAM已经成为一个很广泛的话题，所以这个问题适合在  **给定的 机器人/环境/性能 三者组合的情况下** 提问。
 
-##### 1.4.2.1 比较成熟的领域：提高精度、鲁棒性
+##### 1.4.2.1 比较成熟的领域：提高系统的精度、鲁棒性
 
 - 配备 车轮编码器和激光扫描仪 的构建 二维地图 的 室内机器人已经有了相当的精度（<10cm）和足够的鲁棒性（如低故障率），可以被认为在很大程度上已经得到解决；
 - 配备 基于视觉SLAM 的 缓慢移动机器人（例如火星漫游者、家用机器人等），以及视觉惯性里程计（visual-inertial odometry）可以被视为是比较成熟的领域；
@@ -131,6 +131,8 @@
 
 - 当机器人的 运动 或者 所处环境 具有挑战性的时候，SLAM算法很容易失效。例如，快速机器人动力学 、 高度动态的环境；
 - SLAM算法往往无法满足严格性能要求场合。例如，快速闭环控制下的高速率估计（high rate estimation for fast closed-loop control）
+- 如何平衡实时性和准确性是一个问题；
+- 有关动态、非结构化、复杂、不确定和大规模的环境的解决方案仍有待探索；
 
 ### 1.5 视觉SLAM的相机决策
 
@@ -189,6 +191,8 @@
 
 - G. Dissanayake, S. Huang, Z. Wang, and R. Ranasinghe. A review of recent developments in Simultaneous Localization and Mapping. In International Conference on Industrial and Information Systems*, pages 477–482. IEEE, 2011.
 
+#### 2.2.3 挑战
+
 
 
 ### 2.3 2015—至今：robust-perception age（稳健感知时期）
@@ -218,6 +222,31 @@
 > the SLAM system is able to select relevant perceptual information and fifilter out irrelevant sensor data, in order to support the task the robot has to perform; moreover, the SLAM system produces adaptive map representations, whose complexity may vary depending on the task at hand
 
 系统有 选择 相关感知信息 和 滤除 不相关传感数据 的能力 来支持机器人需要执行的任务。此外，系统产生自适应的根据手头任务不同而复杂性不同的地图表示。
+
+#### 2.3.2 论文
+
+
+
+#### 2.3.3 挑战
+
+> Visual SLAM still face some important obstacles like the illumination condition, high dynamic environment, fast motion, vigorous rotation and low texture environment.
+
+视觉SLAM仍然面临着光照条件、高动态环境、运动快、旋转剧烈、低纹理环境等重要阻碍。
+
+
+
+#### 2.3.4 未来
+
+- 基于智能手机、嵌入式平台（如无人机）的SLAM
+- 详细的三维重建，使用深度学习的场景理解
+- 多传感器融合问题
+- 语义SLAM：还可以支持全局优化、闭环检测和重新定位；传统的SLAM依赖于点线面等几何特征来推断环境结构，而语义SLAM是使机器人像人类一样思考，从而在大规模场景中实现高精度实时定位的目标。
+- 算法和传感器的深度融合，集成、专用的传感器将发挥出巨大的潜力
+- 端到端
+
+
+
+
 
 
 
