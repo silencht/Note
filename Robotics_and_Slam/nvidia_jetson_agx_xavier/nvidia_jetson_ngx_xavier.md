@@ -58,45 +58,62 @@ etc/resolv.conf 是记录DNS服务参数的文件，手动修改8.8.4.4，114.11
 - VNC或SSH方式（暂未尝试）
 
 #### 5、英伟达板子中文输入法
-搜狗输入法只支持amd架构，而英伟达板子是arm架构，因此搜狗输入法很难安装。所以使用自带的ibus拼音输入法。
+搜狗输入法只支持amd架构，而英伟达板子是arm架构，因此搜狗输入法很难安装。谷歌拼音输入法可以安装，但是xavier板子上有不会出现字的候选框的bug，知乎某答主说是安装了fcitx-qimpanel-configtool的原因。所以我使用自带的ibus拼音输入法。
 [原文](https://blog.csdn.net/qq_34213260/article/details/106226831)
 1. 安装文件 ibus-pinyin
 
-ibus是直接安装了，直接输入ibus会显示如下内容：
+   ibus是系统已经安装，直接输入ibus会显示如下内容：
 
-ibus
+   ```
+   ibus
+   ```
 
-用法：ibus 命令 [选项...]
-命令：
-  engine          设定或获取引擎
-  exit            退出 ibus-daemon
-  list-engine     显示可用引擎
-  watch           (暂不可用)
-  restart         重启 ibus-daemon
-  version         显示版本号
-  read-cache      显示注册缓存内容。
-  write-cache     创建注册缓存
-  address         输出 ibus-daemon 位于 D-Bus 中的地址
-  read-config     显示配置值
-  reset-config    重置配置
-  emoji           将面板中的 emoji 保存到剪贴板 
-  help            显示本信息
+   用法：ibus 命令 [选项...]
+   命令：
+     engine          设定或获取引擎
+     exit            退出 ibus-daemon
+     list-engine     显示可用引擎
+     watch           (暂不可用)
+     restart         重启 ibus-daemon
+     version         显示版本号
+     read-cache      显示注册缓存内容。
+     write-cache     创建注册缓存
+     address         输出 ibus-daemon 位于 D-Bus 中的地址
+     read-config     显示配置值
+     reset-config    重置配置
+     emoji           将面板中的 emoji 保存到剪贴板 
+     help            显示本信息
 
 2. 安装ibus-pinyin
 
+```
 sudo apt-get install ibus-pinyin
+```
 
 3. 系统设置
-打开右上角系统设置，进入语言支持（language support），点击“install / remove language…”，选择简体中文，输入密码，此时系统会进行更新，大约几分钟；
-将菜单和窗口的语言栏中“汉语（中国）”拖到最上方，键盘输入法系统选择IBus，最后选择应用到整个系统按钮；
+    打开右上角系统设置，进入语言支持（language support），点击“install / remove language…”，选择简体中文，输入密码，此时系统会进行更新，大约几分钟；
+    将菜单和窗口的语言栏中“汉语（中国）”拖到最上方，键盘输入法系统选择IBus，最后选择应用到整个系统按钮；
+
 4. ibus设置
-终端下输入：
-ibus-setup
-弹出一个窗口，切换到输入法选项卡，点击添加按钮，选择汉语，选择Pinyin选项，确定；
-输入下述命令，重新启动ibus：
-ibus restart
+    终端下输入：
+
+  ```
+  ibus-setup
+  ```
+
+  弹出一个窗口，切换到输入法选项卡，点击添加按钮，选择汉语，选择Pinyin选项，确定；
+  输入下述命令，重新启动ibus：
+
+  ```
+  ibus restart
+  ```
+
 5. 重启电脑
-reboot
+
+  ```
+  reboot
+  ```
+
 6. 开机切换输入法
 右上角图标栏选择文本输入设置，找到“+”号，找到汉语（pinyin）（ibus）选项，添加，确定；
 切换到下一个源，使用这里是如何切换输入法，可自行选择，推荐ctrl+space
