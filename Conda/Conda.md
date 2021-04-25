@@ -94,6 +94,25 @@ conda允许你创建一个不会与其他环境有关的，包含文件、包和
    conda env remove -n snowflakes
    ```
 
+
+6. 安装conda后取消命令行前出现的base，取消每次启动终端后自动激活conda的base环境
+
+   **方法一：**
+
+   每次手动在命令行通过 `conda deactivate` 退出base环境，回到系统自动的环境
+
+   **方法二：**
+
+   - 通过将auto_activate_base参数设置为false实现：
+
+   ``` 
+   conda config --set auto_activate_base false
+   ```
+
+   - 要进入base环境的话通过 `conda activate base` 命令
+
+   - 若以后还是希望base保持自动激活，通过 `conda config --set auto_activate_base true` 来恢复
+
 ## 3.管理Python
 
 当你创建一个新环境时，conda安装的Python版本与你安装的anaconda软件的默认Python版本相同。如果你想要使用一个不同的Python版本，比如Python 3.5, 你可以在创建一个新的环境时，指定你想要的Python版本。 

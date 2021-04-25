@@ -64,7 +64,7 @@
 $$
 a=Ra'
 $$
-又因为旋转矩阵是一个行列式为1的正交矩阵。所以n维度旋转矩阵的集合可定义为**特殊正交群**（Special Orthogonal Group）：
+又因为旋转矩阵是一个行列式为1的正交矩阵。所以n 维度旋转矩阵的集合可定义为**特殊正交群**（Special Orthogonal Group）：
 $$
 SO(n)=\left \{ R\in \mathbb{R}^{n\times n} \mid RR^{T} =I,det(R)=1\right \}
 $$
@@ -195,8 +195,6 @@ $$
 2. 双线性
 3. 自反性：自己与自己运算结果为零
 4. 雅可比等价
-
-
 
 
 
