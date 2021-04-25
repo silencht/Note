@@ -118,3 +118,20 @@ sudo apt-get install ibus-pinyin
 右上角图标栏选择文本输入设置，找到“+”号，找到汉语（pinyin）（ibus）选项，添加，确定；
 切换到下一个源，使用这里是如何切换输入法，可自行选择，推荐ctrl+space
 
+#### 6、风扇自启动
+
+[此方法原文链接](https://blog.csdn.net/weixin_38693938/article/details/108059540)
+
+不要搞rc.local的启动脚本！！一大堆毛病，还搞不出来！！
+
+直接安装 jetson-stats！
+
+```
+sudo apt install python3-pip
+sudo -H pip3 install jetson-stats
+sudo jtop
+#按数字键5进入CTRL界面
+#按S和E，设置jetson_clocks Running和boot Enable
+#然后按q推出当前界面，重启设备，看看风扇是否开机自动启动
+```
+
