@@ -134,4 +134,45 @@ sudo jtop
 #按S和E，设置jetson_clocks Running和boot Enable
 #然后按q推出当前界面，重启设备，看看风扇是否开机自动启动
 ```
+------
+#### 为ORB-SLAM3安装做准备
+#### 7、安装Opencv
+[方法原网址](https://www.jetsonhacks.com/2018/11/08/build-opencv-3-4-on-nvidia-jetson-agx-xavier-developer-kit/)
+- 注意！Opencv的安装需要至少13GB硬盘空间，否则中途会编译安装失败！
+```
+#安装命令
+$ git clone https://github.com/jetsonhacks/buildOpenCVXavier.git
+$ cd buildOpenCVXavier
+$ git checkout v1.0
+$ ./buildOpenCV.sh
+#安装完毕后删除源程序
+$ ./removeOpenCVSources.sh
+```
+- 确认安装成功的两个方法
+1. 命令行运行jtop命令，按数字6进入info选项卡，查看Opencv版本号
+2. 命令行运行 pkg-config opencv --modversion 命令，直接输出Opencv版本号
+#### 8、安装Pangolin库
+[pangolin库github网址](https://github.com/stevenlovegrove/Pangolin)
+```
+#Required Dependencies
+sudo apt install libgl1-mesa-dev
+sudo apt install libglew-dev
+sudo apt install cmake
+#download and build
+git clone https://github.com/stevenlovegrove/Pangolin.git
+cd Pangolin
+mkdir build
+cd build
+cmake ..
+cmake --build .
+#### 9、安装Eigen库
+```
+#Eigen3头文件默认位置在/usr/include/eigen3/中
+#不确定是否安装的话，可以先查找一下
+whereis eigen3
+#若没有安装，输入以下命令安装
+sudo apt-get install libeigen3-dev
+```
+#### 10、DBoW2 and g2o (Included in ORB_SLAM3/Thirdparty folder)
+------
 
