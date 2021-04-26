@@ -7,6 +7,8 @@
 
 ### 2、换源
 
+- 普通电脑换源
+
 ```bash
 # 首先备份源列表
 sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
@@ -27,6 +29,22 @@ deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restri
 #更新软件列表
 sudo apt-get update
 ```
+
+- NVIDIA Jetson AGX Xavier开发板ARM架构CPU系统换源
+
+```bash
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb [arch=arm64] https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic main restricted universe multiverse
+deb [arch=arm64] https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-updates main restricted universe multiverse
+deb [arch=arm64] https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-backports main restricted universe multiverse
+deb [arch=arm64] https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ bionic-security main restricted universe multiverse
+```
+
+一定要指明架构：[arch=arm64] ，不然 apt-get update 会陷入 amd等架构目录的获取。
 
 ### 3、安装基础工具
 
