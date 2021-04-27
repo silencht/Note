@@ -72,18 +72,10 @@ etc/resolv.conf 是记录DNS服务参数的文件，手动修改8.8.4.4，114.11
    命令：
      engine          设定或获取引擎
      exit            退出 ibus-daemon
-     list-engine     显示可用引擎
-     watch           (暂不可用)
-     restart         重启 ibus-daemon
-     version         显示版本号
-     read-cache      显示注册缓存内容。
-     write-cache     创建注册缓存
-     address         输出 ibus-daemon 位于 D-Bus 中的地址
-     read-config     显示配置值
-     reset-config    重置配置
+     ……略
      emoji           将面板中的 emoji 保存到剪贴板 
      help            显示本信息
-
+   
 2. 安装ibus-pinyin
 
 ```
@@ -179,7 +171,7 @@ sudo apt-get install libeigen3-dev
 
 ​	Already Included in ORB_SLAM3/Thirdparty folder.
 
-#### 11、安装ORB-SLAM3
+#### 11、安装编译ORB-SLAM3
 
 ```bash
 #clone this repository
@@ -190,4 +182,41 @@ cd ORB_SLAM3
 chmod +x build.sh
 ./build.sh
 ```
+
+期间若遇到如下编译错误：
+
+```
+……
+/usr/bin/ld:cannot find -lboost_serialization
+collect2:error:ld returned 1 exit status
+……
+```
+
+- [解决方法](https://blog.csdn.net/a922922737/article/details/109697291)：
+
+  这个错误的意思是找不到boost_serialization共享库，这个库的文件名应该为“libboost_serializatio.so”，其命名规则是：lib+库名(即xxx)+.so
+
+  1. 方法一
+
+     ```bash
+     #安装locate库
+     sudo apt-get install locate
+     #定位缺失库位置
+     locate libboost_serialization.so
+     #若可定位到（如定位结果为/usr/local/ahuasdk/libXXX.so）进行软链接，定位不到见方法二
+     sudo ln -s /usr/local/ahuasdk/libXXX.so /usr/lib/libXXX.so
+     ```
+
+  2. 方法二
+
+     ```bash
+     sudo apt-get install apt-file
+     sudo apt-file update
+     apt-file search libboost_serializatio.so
+     #apt-file 将列出所有包含libXXX.so文件的apt包，
+     #选择相应的包用apt-get安装即可，通常请选择带dev的包安装。输出举例如下
+     libboost_serializatio1.65-dev: /usr/lib/aarch64-linux-gnu/libboost_serialization.so
+     #安装缺失库
+     sudo apt-get install libboost_serializatio1.65-dev
+     ```
 
