@@ -142,6 +142,44 @@ $ ./removeOpenCVSources.sh
 - 确认安装成功的两个方法
 1. 命令行运行jtop命令，按数字6进入info选项卡，查看Opencv版本号
 2. 命令行运行 pkg-config opencv --modversion 命令，直接输出Opencv版本号
+
+- 使用OpenCV打开摄像头：
+
+```python
+import time
+import cv2
+
+cap = cv2.VideoCapture(0)
+start_time = time.time()
+counter = 0
+# 获取视频宽度、高度
+frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+# 视频平均帧率
+fps = cap.get(cv2.CAP_PROP_FPS) 
+while (True):
+    ret, frame = cap.read()
+    # 键盘输入空格暂停，输入q退出
+    key = cv2.waitKey(1) & 0xff
+    if key == ord(" "):
+        cv2.waitKey(0)
+    if key == ord("q"):
+        break
+    counter += 1  # 计算帧数
+    if (time.time() - start_time) != 0:  # 实时显示帧数
+        cv2.putText(frame, "FPS {0}".format(float('%.1f' % (counter / (time.time() - start_time)))), (500, 50),cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255),3)
+        src = cv2.resize(frame, (frame_width // 3, frame_height // 3), interpolation=cv2.INTER_CUBIC)  # 窗口大小
+        cv2.imshow('frame', src)
+        print("FPS: ", counter / (time.time() - start_time))
+        counter = 0
+        start_time = time.time()
+    time.sleep(1 / fps)  # 按原帧率播放
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
 #### 8、安装Pangolin库
 [pangolin库github网址](https://github.com/stevenlovegrove/Pangolin)
 ```bash
