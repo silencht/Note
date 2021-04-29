@@ -253,12 +253,14 @@ collect2:error:ld returned 1 exit status
      ```bash
      sudo apt-get install apt-file
      sudo apt-file update
-     apt-file search libboost_serializatio.so
+     apt-file search libboost_serialization.so
      #apt-file 将列出所有包含libXXX.so文件的apt包，
      #选择相应的包用apt-get安装即可，通常请选择带dev的包安装。输出举例如下
      libboost_serializatio1.65-dev: /usr/lib/aarch64-linux-gnu/libboost_serialization.so
      #安装缺失库
-     sudo apt-get install libboost_serializatio1.65-dev
+     sudo apt-get install libboost-serializatio1.65-dev
+     #注意，可能为
+     sudo apt-get install libboost-serializatio1.65-dev
      ```
      
   3.  或者尝试安装
