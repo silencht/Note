@@ -26,7 +26,7 @@ sdkmanager
 解决方法：
 
 - 通过手动配置sdkmanager客户端右上角settings内的代理（与魔法上网参数一致），偶然成功刷机一次，但该方法第二天失效。具体成功原因暂时未知。
-- 使用学校的10GB流量账号可流畅登陆下载运行。、
+- 使用学校的10GB流量账号可流畅登陆下载运行。
 
 #### 2、usb 1-4-port1:cannote enable. maybe the usb cable is bad？
 
@@ -221,10 +221,13 @@ chmod +x build.sh
 ./build.sh
 ```
 
-期间若遇到如下编译错误：
+#### 12、编译期间若遇到如下编译错误
 
-```
-……
+##### 一、boost_serialization
+
+```bash
+fatal error: boost/serialization/serialization.hpp:没有那个文件或目录
+或……
 /usr/bin/ld:cannot find -lboost_serialization
 collect2:error:ld returned 1 exit status
 ……
@@ -257,4 +260,54 @@ collect2:error:ld returned 1 exit status
      #安装缺失库
      sudo apt-get install libboost_serializatio1.65-dev
      ```
+     
+  3.  或者尝试安装
 
+     ```bash
+     sudo apt-get install libboost-dev
+     ```
+
+  ##### 二、openssl/md5.h
+
+  ```
+  fatal error : openssl/md5.h:没有那个文件或目录
+  ```
+
+- [解决方法](https://www.cnblogs.com/wangjq19920210/p/10698146.html)
+
+  ```bash
+  #首先得安装openssl：
+  sudo apt-get install openssl 
+  #其次，如果有#include<openssl/ssl.h>编译报错：openssl/ssl.h：没有那个文件或目录，解决办法为
+  sudo apt-get install libssl-dev
+  #安装上边的依赖就好了。
+  ```
+
+  三、v0.4beta中`no match for ‘operator/‘`的错误
+
+  ```cpp
+  ORB_SLAM3/src/LocalMapping.cc:628:49: error: no match for ‘operator/’ (operand types are ‘cv::Matx<float, 3, 1>’ and ‘float’)
+  x3D = x3D_h.get_minor<3,1>(0,0) / x3D_h(3);
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+  ```
+
+  [解决办法]():
+
+  ```c++
+  //You can add below code to KannalaBrandt8.h. and LocalMapping.h
+  
+  namespace cv
+  {
+  	template<typename _Tp, int m, int n> static inline
+  	Matx<_Tp, m, n> operator / (const Matx<_Tp, m, n>& a, float alpha)
+  	{
+  		return Matx<_Tp, m, n>(a, 1.f / alpha, Matx_ScaleOp());
+  	}
+  }
+  
+  //It will works for all same problems
+  //继续出现编译错误，暂时放弃该版本，建议更换0.3beta版本
+  git checkout -f ef97841
+  ```
+
+  
