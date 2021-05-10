@@ -312,4 +312,56 @@ collect2:error:ld returned 1 exit status
   git checkout -f ef97841
   ```
 
+#### 13、安装Sophus
+##### 1、安装命令
+
+```bash
+cd ~
+git clone https://github.com/strasdat/Sophus
+#网络不好的时候尝试镜像网站，网址如下：
+git clone https://ghproxy.com/https://github.com/strasdat/Sophus
+#安装
+cd Sophus
+mkdir build
+cd build
+cmake ..
+make install
+```
+
+##### 2、cmake .. 时出现fmt错误如下
+
+```bash
+-- Found Eigen3: /usr/include/eigen3 (Required is at least version "3.3.0") 
+CMake Error at CMakeLists.txt:37 (find_package):
+  By not providing "Findfmt.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "fmt", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "fmt" with any of
+  the following names:
+
+    fmtConfig.cmake
+    fmt-config.cmake
+
+  Add the installation prefix of "fmt" to CMAKE_PREFIX_PATH or set "fmt_DIR"
+  to a directory containing one of the above files.  If "fmt" provides a
+  separate development package or SDK, be sure it has been installed.
+```
+
+- [解决方法](https://github.com/facebook/folly/blob/master/README.md)
+
+```bash
+Folly relies on [fmt](https://github.com/fmtlib/fmt) which needs to be installed from source.
+The following commands will download, compile, and install fmt.
+
+```
+git clone https://github.com/fmtlib/fmt.git && cd fmt
+
+mkdir _build && cd _build
+cmake ..
+
+make -j$(nproc)
+sudo make install
+```
+
   
