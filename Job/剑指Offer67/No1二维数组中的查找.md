@@ -50,14 +50,14 @@
 
 #### **1、第一种方法**
 
-右上角逐渐逼近左下角 很好
+右上角逐渐逼近左下角
 
--   如果当前位置元素比target小，则row--（注：row为列，col为行）
--   如果当前位置元素比target大，则col++
+-   如果当前位置元素比target小，则row++（注：row为行，col为列）
+-   如果当前位置元素比target大，则col--
 -   如果相等，返回true
 -   如果越界了还没找到，说明不存在，返回false
 
-首先判断数组的列`array[0].empty`和行`array.empty()`是否为空，然后取得列值row和行值col，接着将坐标定位到右上角，最后开始循环判断，从右向左，从上向下。
+首先判断数组的列`array[0].empty`和行`array.empty()`是否为空，然后取得列值col和行值row，接着将坐标定位到右上角，最后开始循环判断，从右向左，从上向下。
 
 ```c++
 class Solution {
@@ -65,7 +65,7 @@ class Solution {
     bool Find(int target, vector<vector<int> > array) {
         if (array.empty() || array[0].empty())return false;
         int row = array[0].size(), col = array.size();
-        int weight = row - 1, height = 0;
+        int weight = col - 1, height = 0;
         while (weight >= 0 && height < col) {
             if (array[height][weight] > target) --weight;
             else if(array[height][weight] < target) ++height;
@@ -74,89 +74,4 @@ class Solution {
         return false;
     }
 };
-```
-
-#### **2、第二种方法**
-
-每轮用二分法替换 挺不错
-
-执行用时 :60 ms, 在所有 C++ 提交中击败了32.07%的用户
-
-内存消耗 :13.2 MB, 在所有 C++ 提交中击败了100.00%的用户
-
-```c++
-bool hasFound(vector<int>& array, int target) {
-
-    int start = 0, end = array.size() - 1;
-    while (start + 1 < end) {
-        int mid = start + (end - start) /2;
-        //cout << array[mid] << " "<<start<<" "<<mid<<" "<<end<<" ";
-        if (array[mid] == target) return true;
-        else if (array[mid] > target) end = mid;
-        else
-            start = mid;
-    }
-    if (array[start] == target || array[end] == target) return true;
-    return false;
-
-}
-
-bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
-    if (matrix.empty() || matrix[0].empty()) return false;
-    for (int i = 0; i < matrix.size(); ++i) {
-        if (hasFound(matrix[i], target)) return true;
-    }
-    return false;
-
-}
-```
-
-**二刷：依然不会，没有头绪...**
-
-**1、从右上像左下查找慢慢逼近**
-
-因为这样就断了它变大或者变小的两条路径了， 变大只能向下走，就是h++,变小只能w--了
-
-```c++
-    bool Find(int target, vector<vector<int> > array) {
-        if(array.size() == 0 || array[0].size() == 0) return false;//条件判断
-        int row = array.size(), col = array[0].size();
-        int w = col-1, h = 0;//因为这样就断了它变大或者变小的两条路径了，
-        //变大只能向下走，就是h++,变小只能w--了
-        while( w>=0 && h<row){
-            if( array[h][w] > target ) w--;
-            else if( array[h][w] < target) h++;
-            else
-                return true;
-        }
-        return false;
-    }
-```
-
-**2、每个数组用二分法代替**
-
-```c++
-    bool hasFind(vector<int>&nums, int target){
-        int low = 0,high = nums.size()-1;
-        while(low + 1 < high){
-            int mid = low + (high - low)/2;
-            if(nums[mid] > target) high = mid;
-            else if(nums[mid] < target) low = mid;
-            else
-                return true;
-        }
-
-        if(nums[low] == target || nums[high] == target) return true;
-
-        return false;        
-
-    }
-    bool Find(int target, vector<vector<int> > array) {
-        if(array.size() == 0 || array[0].size() == 0) return false;//条件判断
-        int row = array.size();
-        for(int i = 0; i < row; ++i){
-            if(hasFind(array[i], target)) return true;
-        }
-        return false;
-    }
 ```
